@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LcSena</title>
+	<script>
+		function CpfValido(vCpf)
+		{
+			let pattern = /[0-9]+/; //criando um padrão
+			return pattern.test(vCpf); //garantindo que terá pelo menos 1 numero
+			//o método teste retorna verdadeiro ou falso.
+		}
+
+		function FormValido(pNome, pEndereco, pPostalCode, pPais, pCpf, pPassaporte, pEmail, pData)
+		{
+            let msg = ""; //cria a mensagem vazia onde irá colocar os erros
+			
+            if (pNome == "") 
+			{
+                msg = "Nome não pode ser vazio. <br>";
+            }
+            if (pEndereco == "")
+			{
+                msg += "Endereço deve ser numerico. <br>";
+            }
+            if (pPostalCode == "") 
+			{
+                msg += "PostalCode não pode ser vazio. <br>";
+            }
+			if (pPais == "") 
+			{
+                msg += "Pais não pode ser vazio. <br>";
+            }
+			if (!CpfValido(pCpf)) 
+			{
+                msg += "CPF deve ser numérico. <br>";
+            }
+			if (pPassaporte == "") 
+			{
+                msg += "Passaporte não pode ser vazio. <br>";
+            }
+			if (pEmail == "") 
+			{
+                msg += "Email não pode ser vazio. <br>";
+            }
+			if (pData == "") 
+			{
+                msg += "Data não pode ser vazio. <br>";
+            }
+            return msg;
+        }
+		
+		function ValidarForm()
+		{
+			//declarando uma variável chamada objForm que acessará o DOM
+            let objForm = document.getElementById("cadClientes"); //colocando dentro de objForm o cadClientes que é o form V
+			
+            console.log("objForm: " + objForm.innerHTML); //coloque no log esse html V
+			
+			//nome endereco pcode pais cpf passaporte email data
+			
+            let strNome = document.getElementById("nome").value;
+            let strEndereco = document.getElementById("endereco").value;
+            let strPostalCode = document.getElementById("pcode").value;
+			let strPais = document.getElementById("pais").value;
+            let strCpf = document.getElementById("cpf").value;
+            let strPassaporte = document.getElementById("passaporte").value;
+			let strEmail = document.getElementById("email").value;
+            let strData = document.getElementById("data").value;
+			
+            console.log("Nome: " + strNome + "Endereço: " + strEndereco + "PostalCode: " + strPostalCode + "Pais: " + strPais + "CPF: " + strCpf + "Passaporte: " + strPassaporte + "Email: " + strEmail + "dataNascimento: " + strData);
+			
+            let mensagem = FormValido(strNome, strEndereco, strPostalCode, strPais, strCpf, strPassaporte, strEmail, strData); //mensagem recebe o resultado de FormValido
+			
+			let objForm2 = {"nome":strNome, "endereco":strEndereco, "pcode":strPostalCode, "pais":strPais, "cpf":strCpf, "passaporte":strPassaporte, "email":strEmail, "data":strData};
+            //let objForm3 = {"pergunta":"alo?", "pontos":"2", "dificuldade":"facil"};
+            let objJSON = JSON.stringify(objForm2);
+            
+			console.log("JSON: " + objJSON);
+
+            if (mensagem == "") //se a mensagem está vazia, ou seja não retornou a msg formValido, indica que é valido e pode enviá-lo
+			{
+                console.log("Passou na validação");
+                EnviarForm(strNome, strEndereco, strPostalCode, strPais, strCpf, strPassaporte, strEmail, strData);
+            } 
+			else 
+			{
+                document.getElementById("msg").innerHTML = mensagem; //escrevendo a mensagem de erro dentro de msgErro que está no h3
+            }
+        }
+		
+		function EnviarForm(eNome, eEndereco, ePostalCode, ePais, eCpf, ePassaporte, eEmail, eData)
+		{
+			let xmlHttp = new XMLHttpRequest();
+			
+			xmlHttp.onreadystatechange = function ()//controla a mudança de estado, informando cada mudança
+			{
+				if (this.readyState == 4 && this.status == 200)
+				{
+					console.log("Chegou resposta: " + this.responseText);
+					//document.getElementById("msg").innerHTML = this.responseText; //a informação do jeito que chegar vai ser colocada no log
+				
+					let objReturnJSON = JSON.parse(this.responseText); //convertendo de um formato para outro
+					
+                   // document.getElementById("retPergunta").innerHTML = objReturnJSON.pergunta; //escrever a pergunta dentro do retPergunta
+                   //document.getElementById("retPontos").innerHTML = objReturnJSON.pontos; //escrever os pontos dentro do retPontos
+                   //document.getElementById("retDificuldade").innerHTML = objReturnJSON.dificuldade; //escrever a dificuldade dentro de retDificuldade
+				}
+			}
+			//abrindo o xml
+			xmlHttp.open("GET","http://localhost/3DAW/av2_alterarCliente.php?nome=" + eNome + "&endereco=" + eEndereco + "&pcode=" + ePostalCode + "&pais=" + ePais + "&cpf=" + eCpf + "&passaporte=" + ePassaporte + "&email=" + eEmail + "&data=" + eData);
+			//nome endereco pcode pais cpf passaporte email data
+			
+			//enviando o form
+			xmlHttp.send();
+			
+			console.log("Enviei requisição");
+		}
+		
+		function buscarCliente() 
+		{
+            let xmlHttp = new XMLHttpRequest();
+			
+            xmlHttp.onreadystatechange = function() //controla a mudança de estado, informando cada mudança
+			{
+            if (this.readyState == 4 && this.status == 200) 
+				{
+                    console.log("Chegou resposta: " + this.responseText);
+                    //document.getElementById("msg").innerHTML = this.responseText; //a informação do jeito que chegar vai ser colocada no log
+                    
+					let objReturnJSON = JSON.parse(this.responseText); //convertendo de um formato para outro
+					
+					for (i=0; i< objReturnJSON.length; i++)
+					{
+						let linha = objReturnJSON[i];
+						
+						//let divP1 = document.createElement("div"); //criando uma div
+						//let perg1 = document.createTextNode(objReturnJSON[i]); //criando um texto
+						
+						//divP1.appendChild(perg1); ///criando uma div com um texto
+						
+						//divExistente = document.getElementById("lista");
+						//document.body.insertBefore(divP1, divExistente);
+						
+						criarForm(objReturnJSON[i]);
+					}
+				}
+            }
+			//abrindo o xml
+			xmlHttp.open("GET","http://localhost/3DAW/av2_alterarCliente.php?id=" + eId);
+            
+			//enviando o form
+			xmlHttp.send();
+            
+			console.log("Enviei requisição");
+		}
+		function criarForm(pobjReturnJSON)  //nome endereco pcode pais cpf passaporte email data
+			{
+            //let tr = document.createElement("tr"); // cria o elemento tr
+            //let td = document.createElement("td"); // cria o element td
+            
+			//let textnode = document.createTextNode(pobjReturnJSON.id);
+            //tr.appendChild(td); // adiciona a td na tr
+			//td.appendChild(textnode); // adiciona o texto na td criada
+			
+            let textnode = document.createTextNode(pobjReturnJSON.nome);
+			let e1 = document.createElement("nome"); // cria o element td
+			//tr.appendChild(td2); // adiciona a td na tr
+            e1.appendChild(textnode); // adiciona o texto na td criada
+
+            textnode = document.createTextNode(pobjReturnJSON.endereco);
+			let e2 = document.createElement("endereco"); // cria o element td
+			//tr.appendChild(td3); // adiciona a td na tr
+            e2.appendChild(textnode); // adiciona o texto na td criada
+
+            textnode = document.createTextNode(pobjReturnJSON.postalCode);
+			let e3 = document.createElement("pCode"); // cria o element td
+            tr.appendChild(td4); // adiciona a td na tr
+			e3.appendChild(textnode); // adiciona o texto na td criada
+			
+			textnode = document.createTextNode(pobjReturnJSON.pais);
+			let e4 = document.createElement("pais"); // cria o element td
+            //tr.appendChild(td5); // adiciona a td na tr
+			e4.appendChild(textnode); // adiciona o texto na td criada
+			
+			textnode = document.createTextNode(pobjReturnJSON.cpf);
+			let e5 = document.createElement("cpf"); // cria o element td
+            //tr.appendChild(td6); // adiciona a td na tr
+			e5.appendChild(textnode); // adiciona o texto na td criada
+			
+			textnode = document.createTextNode(pobjReturnJSON.passaporte);
+			let e6 = document.createElement("passaporte"); // cria o element td
+            //tr.appendChild(td7); // adiciona a td na tr
+			e6.appendChild(textnode); // adiciona o texto na td criada
+			
+			textnode = document.createTextNode(pobjReturnJSON.email);
+			let e7 = document.createElement("email"); // cria o element td
+            //tr.appendChild(td8); // adiciona a td na tr
+			e7.appendChild(textnode); // adiciona o texto na td criada
+			
+			textnode = document.createTextNode(pobjReturnJSON.dataNascimento);
+			let e8 = document.createElement("data"); // cria o element td
+            //tr.appendChild(td9); // adiciona a td na tr
+			e8.appendChild(textnode); // adiciona o texto na td criada
+
+            //let tr_fim = document.getElementById("ultimaLinha"); // pega a tr pelo id
+            // adiciona o elemento criado, a partir do nó pai (no caso <table>)
+            //tr_fim.parentNode.insertBefore(tr, tr_fim);
+			}
+	</script>
+</head>
+<body>
+<h1>3DAW - Alterar Pergunta</h1>
+<br>
+<a href="av2_incluirCliente.html">Inserir Cliente</a><br><br><br>
+<a href="av2_alterarCliente.html">Alterar Cliente</a><br><br><br>
+<a href="av2_listarClientes.html">Listar Clientes</a><br><br><br>
+<br>
+
+<form action="" method="GET"> 
+	ID do cliente a ser alterado: <input type=text name="id">
+	<input type="button" value="Buscar Cliente" onclick="buscarCliente()">
+	<br> <br> <br>
+</form>
+
+<form action="" method=POST id="cadClientes">	
+	Nome: <input type=text name="nome" id="nome"> <br>
+	Endereço: <input type=text name="endereco" id="endereco"> <br>
+	postalCode: <input type=text name="pcode" id="pcode"> <br>
+	Pais: <input type=text name="pais" id="pais"> <br>
+	CPF: <input type=text name="cpf" id="cpf"> <br>
+	Passaporte: <input type=text name="passaporte" id="passaporte"> <br>
+	Email: <input type=text name="email" id="email"> <br>
+	dataNascimento: <input type=text name="data" id="data"> <br>
+	<br><br>
+	<input type="button" value="Alterar Cliente" onclick="ValidarForm()">
+</form>
+</body>
+</html>
