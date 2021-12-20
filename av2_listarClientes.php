@@ -14,7 +14,7 @@ if ($conn -> connect_error) //se a conexão der erro
 	die ("conexão com erro: " .$conn->connect_error); //vai aparecer uma mensagem de erro dizendo qual foi este erro
 		 
 }
-$comandoSQL = "SELECT * from `cliente`"; //comandoSQL será responsável por guardar a chamada que insere os dados vindo do formulário no banco
+$comandoSQL = "SELECT * FROM `cliente` order by nome DESC"; //comandoSQL será responsável por guardar a chamada que insere os dados vindo do formulário no banco
 $result = $conn->query($comandoSQL); //Faça uma conexão através da conexão com o mysql, utilizando o metodo query que executa comandos. Result guardará o resultado do comandoSQL
 
 $arrClientes = array();
