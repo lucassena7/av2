@@ -117,7 +117,7 @@
 			console.log("Enviei requisição");
 		}
 		
-		function buscarCliente() 
+		function buscarCliente(eId) 
 		{
             let xmlHttp = new XMLHttpRequest();
 			
@@ -154,63 +154,53 @@
             
 			console.log("Enviei requisição");
 		}
+		
 		function criarForm(pobjReturnJSON)  //nome endereco pcode pais cpf passaporte email data
 			{
-            //let tr = document.createElement("tr"); // cria o elemento tr
-            //let td = document.createElement("td"); // cria o element td
-            
-			//let textnode = document.createTextNode(pobjReturnJSON.id);
-            //tr.appendChild(td); // adiciona a td na tr
-			//td.appendChild(textnode); // adiciona o texto na td criada
-			
-            let textnode = document.createTextNode(pobjReturnJSON.nome);
-			let e1 = document.createElement("nome"); // cria o element td
-			//tr.appendChild(td2); // adiciona a td na tr
-            e1.appendChild(textnode); // adiciona o texto na td criada
+				let textnode = document.createTextNode(pobjReturnJSON.nome);
+				let e1 = document.createElement("nome"); // cria o element td
+				//tr.appendChild(td2); // adiciona a td na tr
+				e1.appendChild(textnode); // adiciona o texto na td criada
 
-            textnode = document.createTextNode(pobjReturnJSON.endereco);
-			let e2 = document.createElement("endereco"); // cria o element td
-			//tr.appendChild(td3); // adiciona a td na tr
-            e2.appendChild(textnode); // adiciona o texto na td criada
+				textnode = document.createTextNode(pobjReturnJSON.endereco);
+				let e2 = document.createElement("endereco"); // cria o element td
+				//tr.appendChild(td3); // adiciona a td na tr
+				e2.appendChild(textnode); // adiciona o texto na td criada
 
-            textnode = document.createTextNode(pobjReturnJSON.postalCode);
-			let e3 = document.createElement("pCode"); // cria o element td
-            tr.appendChild(td4); // adiciona a td na tr
-			e3.appendChild(textnode); // adiciona o texto na td criada
-			
-			textnode = document.createTextNode(pobjReturnJSON.pais);
-			let e4 = document.createElement("pais"); // cria o element td
-            //tr.appendChild(td5); // adiciona a td na tr
-			e4.appendChild(textnode); // adiciona o texto na td criada
-			
-			textnode = document.createTextNode(pobjReturnJSON.cpf);
-			let e5 = document.createElement("cpf"); // cria o element td
-            //tr.appendChild(td6); // adiciona a td na tr
-			e5.appendChild(textnode); // adiciona o texto na td criada
-			
-			textnode = document.createTextNode(pobjReturnJSON.passaporte);
-			let e6 = document.createElement("passaporte"); // cria o element td
-            //tr.appendChild(td7); // adiciona a td na tr
-			e6.appendChild(textnode); // adiciona o texto na td criada
-			
-			textnode = document.createTextNode(pobjReturnJSON.email);
-			let e7 = document.createElement("email"); // cria o element td
-            //tr.appendChild(td8); // adiciona a td na tr
-			e7.appendChild(textnode); // adiciona o texto na td criada
-			
-			textnode = document.createTextNode(pobjReturnJSON.dataNascimento);
-			let e8 = document.createElement("data"); // cria o element td
-            //tr.appendChild(td9); // adiciona a td na tr
-			e8.appendChild(textnode); // adiciona o texto na td criada
-
-            //let tr_fim = document.getElementById("ultimaLinha"); // pega a tr pelo id
-            // adiciona o elemento criado, a partir do nó pai (no caso <table>)
-            //tr_fim.parentNode.insertBefore(tr, tr_fim);
+				textnode = document.createTextNode(pobjReturnJSON.postalCode);
+				let e3 = document.createElement("pCode"); // cria o element td
+				tr.appendChild(td4); // adiciona a td na tr
+				e3.appendChild(textnode); // adiciona o texto na td criada
+				
+				textnode = document.createTextNode(pobjReturnJSON.pais);
+				let e4 = document.createElement("pais"); // cria o element td
+				//tr.appendChild(td5); // adiciona a td na tr
+				e4.appendChild(textnode); // adiciona o texto na td criada
+				
+				textnode = document.createTextNode(pobjReturnJSON.cpf);
+				let e5 = document.createElement("cpf"); // cria o element td
+				//tr.appendChild(td6); // adiciona a td na tr
+				e5.appendChild(textnode); // adiciona o texto na td criada
+				
+				textnode = document.createTextNode(pobjReturnJSON.passaporte);
+				let e6 = document.createElement("passaporte"); // cria o element td
+				//tr.appendChild(td7); // adiciona a td na tr
+				e6.appendChild(textnode); // adiciona o texto na td criada
+				
+				textnode = document.createTextNode(pobjReturnJSON.email);
+				let e7 = document.createElement("email"); // cria o element td
+				//tr.appendChild(td8); // adiciona a td na tr
+				e7.appendChild(textnode); // adiciona o texto na td criada
+				
+				textnode = document.createTextNode(pobjReturnJSON.dataNascimento);
+				let e8 = document.createElement("data"); // cria o element td
+				//tr.appendChild(td9); // adiciona a td na tr
+				e8.appendChild(textnode); // adiciona o texto na td criada
 			}
 	</script>
 </head>
 <body>
-<h1>3DAW - Alterar Pergunta</h1>
+<h1>3DAW - Alterar Cliente</h1>
 <br>
 <a href="av2_incluirCliente.html">Inserir Cliente</a><br><br><br>
 <a href="av2_alterarCliente.html">Alterar Cliente</a><br><br><br>

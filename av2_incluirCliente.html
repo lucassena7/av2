@@ -85,7 +85,7 @@
             } 
 			else 
 			{
-                document.getElementById("msg").innerHTML = mensagem; //escrevendo a mensagem de erro dentro de msgErro que está no h3
+                document.getElementById("msg").innerHTML = mensagem; //escrevendo a mensagem de erro dentro de msgErro que está no p
             }
         }
 		
@@ -101,10 +101,6 @@
 					//document.getElementById("msg").innerHTML = this.responseText; //a informação do jeito que chegar vai ser colocada no log
 				
 					let objReturnJSON = JSON.parse(this.responseText); //convertendo de um formato para outro
-					
-                   // document.getElementById("retPergunta").innerHTML = objReturnJSON.pergunta; //escrever a pergunta dentro do retPergunta
-                   //document.getElementById("retPontos").innerHTML = objReturnJSON.pontos; //escrever os pontos dentro do retPontos
-                   //document.getElementById("retDificuldade").innerHTML = objReturnJSON.dificuldade; //escrever a dificuldade dentro de retDificuldade
 				}
 			}
 			//abrindo o xml
@@ -133,15 +129,12 @@
 	CPF: <input type=text name="cpf" id="cpf"> <br>
 	Passaporte: <input type=text name="passaporte" id="passaporte"> <br>
 	Email: <input type=text name="email" id="email"> <br>
-	dataNascimento: <input type=text name="data" id="data"> <br>
+	dataNascimento 'AAAA/MM/DD'': <input type=text name="data" id="data"> <br>
 	<br><br>
 	<input type="button" value="Inserir Cliente" onclick="ValidarForm()">
 </form>
 
 <p id="msg"></p>
-<p id="retPergunta"></p>
-<p id="retPontos"></p>
-<p id="retDificuldade"></p>
 <br>
 </body>
 </html>
